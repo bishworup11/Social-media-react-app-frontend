@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ProfileBanner from "./ProfileBanner";
 import LeftSider from "./LeftSider";
 import RightSider from "./RightSider";
@@ -6,17 +7,21 @@ import { useDispatch, useSelector } from "react-redux";
 import Post from "../posts/Post";
 import FeedComponent from "../FeedComponent";
 
+import { fetchPosts } from "../../store/postSlice";
+
 export default function Profiles() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.post.posts);
   const currentUser = useSelector((state) => state.auth.currentUser);
-  let sortedPosts = [...posts].sort((a, b) => b.postId - a.postId);
-  sortedPosts = sortedPosts.filter(
-    (post) => currentUser.userId === post.userId
-  );
+  const { slug } = useParams();
+  console.log(posts);
+
+  useEffect(() => {
+    dispatch(fetchPosts({ page: 1, limit: 2, userId: slug }));
+  }, [dispatch, slug]);
 
   return (
-    <div class="_profile_wrapper" style={{height: "auto"}}>
+    <div class="_profile_wrapper" style={{ height: "auto" }}>
       <div class="_profile_wrap">
         <div class="container">
           <ProfileBanner currentUser={currentUser} />
@@ -28,7 +33,8 @@ export default function Profiles() {
                   <div className="_layout_middle_inner">
                     {/* <StoryCard /> */}
                     <FeedComponent />
-                    {sortedPosts.map((post) => {
+                    {posts?.map((post) => {
+                      //console.log(post);
                       return <Post key={post.postId} post={post} />;
                     })}
                   </div>

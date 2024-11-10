@@ -14,6 +14,16 @@ export const postsApi = {
     return response.data;
   },
 
+  getPostsByUserId: async (page = 1, limit = 50, userId) => {
+    console.log("userId", userId);
+    const response = await axios.get(`${API_URL}/get-post-user`, {
+      params: { page, limit, userId },
+      withCredentials: true,
+    });
+
+    return response.data;
+  },
+
   createPost: async (postData) => {
     const response = await axios.post(`${API_URL}/create-post`, postData, {
       withCredentials: true,
@@ -22,25 +32,43 @@ export const postsApi = {
   },
 
   updatePost: async (postData) => {
-    const response = await axios.post(`${API_URL}/update-post`, postData);
+    const response = await axios.post(`${API_URL}/update-post`, postData, {
+      withCredentials: true,
+    });
+    return response.data;
+  },
+
+  updatePostVisibility: async (postData) => {
+    const response = await axios.post(`${API_URL}/post-visibility`, postData, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
   deletePost: async (postData) => {
-    const response = await axios.delete(`${API_URL}/delete-post`, {
-      data: postData,
+    console.log("postData", postData);
+    const response = await axios.post(`${API_URL}/delete-post`, postData, {
+      withCredentials: true,
     });
     return response.data;
   },
 
   reactToPost: async (reactData) => {
-    const response = await axios.post(`${API_URL}/post-react`, reactData);
+    const response = await axios.post(`${API_URL}/post-react`, reactData, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
   // Comment APIs
   createComment: async (commentData) => {
-    const response = await axios.post(`${API_URL}/create-comment`, commentData);
+    const response = await axios.post(
+      `${API_URL}/create-comment`,
+      commentData,
+      {
+        withCredentials: true,
+      }
+    );
     return response.data;
   },
 
@@ -64,13 +92,17 @@ export const postsApi = {
   },
 
   reactToComment: async (reactData) => {
-    const response = await axios.post(`${API_URL}/comment-react`, reactData);
+    const response = await axios.post(`${API_URL}/comment-react`, reactData, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
   // Reply APIs
   createReply: async (replyData) => {
-    const response = await axios.post(`${API_URL}/create-reply`, replyData);
+    const response = await axios.post(`${API_URL}/create-reply`, replyData, {
+      withCredentials: true,
+    });
     return response.data;
   },
 
@@ -94,7 +126,9 @@ export const postsApi = {
   },
 
   reactToReply: async (reactData) => {
-    const response = await axios.post(`${API_URL}/reply-react`, reactData);
+    const response = await axios.post(`${API_URL}/reply-react`, reactData, {
+      withCredentials: true,
+    });
     return response.data;
   },
 };

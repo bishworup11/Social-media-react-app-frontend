@@ -5,14 +5,14 @@ import { logout } from "../store/authSlice";
 const Navbar = ({ darkMode, setDarkMode }) => {
   const [isDropShow, setIsDropShow] = useState(false);
   const currentUser = useSelector((state) => state.auth.currentUser);
-  //console.log(currentUser);
+  console.log(currentUser);
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   };
 
   const toggleDropdown = () => {
-    // console.log("Dropdown toggled");
+    console.log("Dropdown toggled");
     //console.log(isDropShow);
     setIsDropShow(!isDropShow);
   };
@@ -23,7 +23,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         <div className="_logo_wrap">
           <a className="navbar-brand" href="/">
             <img
-              src="assets/images/logo.svg"
+              src="/assets/images/logo.svg"
               alt="Image"
               className="_nav_logo"
             />
@@ -37,10 +37,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
+          onClick={() => toggleDropdown()}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          // style={{ display: "flex", flexDirection: "row" }}
+        >
           <div className="_header_form ms-auto">
             <form className="_header_form_grp">
               <svg
@@ -62,7 +67,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               />
             </form>
           </div>
-          <ul className="navbar-nav mb-2 mb-lg-0 _header_nav_list ms-auto _mar_r8">
+          <ul
+            className="navbar-nav mb-2 mb-lg-0 _header_nav_list ms-auto _mar_r8"
+            style={{ display: "flex", flexDirection: "row" }}
+          >
             <li className="nav-item _header_nav_item">
               <a
                 className="nav-link _header_nav_link_active _header_nav_link _nav_before_none"
@@ -215,9 +223,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </div>
             <div className="_header_nav_profile">
               <div className="_header_nav_profile_image">
-                <a href="/profile">
+                <a href={`/profile/${currentUser.userId}`}>
                   <img
-                    src={`assets/images/img${
+                    src={`${process.env.PUBLIC_URL}/assets/images/img${
                       currentUser ? currentUser.userId % 18 : 1
                     }.png`}
                     alt="Nav_profile_img"
@@ -281,7 +289,7 @@ function Dropdown({ currentUser }) {
         <div className="_nav_profile_dropdown_image">
           <img
             // src="assets/images/profile.png"
-            src={`assets/images/img${
+            src={`/assets/images/img${
               currentUser ? currentUser.userId % 18 : 1
             }.png`}
             alt="Image"
@@ -296,7 +304,10 @@ function Dropdown({ currentUser }) {
             {" "}
             {currentUser.firstName} {currentUser.lastName}
           </h4>
-          <a href="/profile" className="_nav_drop_profile">
+          <a
+            href={`/profile/${currentUser.userId}`}
+            className="_nav_drop_profile"
+          >
             View Profile
           </a>
         </div>
@@ -304,7 +315,7 @@ function Dropdown({ currentUser }) {
       <hr />
       <ul className="_nav_dropdown_list">
         <li className="_nav_dropdown_list_item">
-          <a href="#0" className="_nav_dropdown_link">
+          <a href="/" className="_nav_dropdown_link">
             <div className="_nav_drop_info">
               <span>
                 <svg

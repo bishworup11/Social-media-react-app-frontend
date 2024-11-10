@@ -2,7 +2,10 @@ import React from "react";
 
 export default function LeftSider() {
   return (
-    <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12" style={{height:"auto"}}>
+    <div
+      className="col-xl-3 col-lg-3 col-md-12 col-sm-12"
+      style={{ height: "auto" }}
+    >
       <div className="_layout_left_wrap">
         <div className="_layout_left_sidebar_inner">
           <div className="_left_inner_area_introduction _padd_t24  _padd_b6 _padd_r24 _padd_l24 _b_radious6 _feed_inner_area">
@@ -128,63 +131,63 @@ export default function LeftSider() {
             <div className="_left_inner_area_photos_area">
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/friends_img.png"
+                  src="/assets/images/friends_img.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos1.png"
+                  src="/assets/images/photos1.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos2.png"
+                  src="/assets/images/photos2.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos3.png"
+                  src="/assets/images/photos3.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos5.png"
+                  src="/assets/images/photos5.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos6.png"
+                  src="/assets/images/photos6.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos7.png"
+                  src="/assets/images/photos7.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos8.png"
+                  src="/assets/images/photos8.png"
                   alt="Image"
                   className="_photo_img"
                 />
               </div>
               <div className="_left_inner_area_photos_box">
                 <img
-                  src="assets/images/photos9.png"
+                  src="/assets/images/photos9.png"
                   alt="Image"
                   className="_photo_img"
                 />

@@ -6019,6 +6019,7 @@
 }
 ._comment_reply_num {
     position: absolute;
+    width: 15rem;
     bottom: -37px;
 }
 ._comment_reply_list {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AiFillLike } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { likePost } from "../../store/postSlice";
+import { reactToPost } from "../../store/postSlice";
 import { useState } from "react";
 import ModalLikes from "./ModalLikes";
 
@@ -15,7 +15,7 @@ const FeedInnerTimelineTotalReacts = ({ post }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    if (post.postReacts.length > 0) setIsModalOpen(true);
+    if (post?.postReacts?.length > 0) setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -30,14 +30,14 @@ const FeedInnerTimelineTotalReacts = ({ post }) => {
       >
         <AiFillLike style={{ fontSize: "1.5rem", color: "#3b82f6" }} />
         <p style={{ fontSize: "1.2rem", marginLeft: ".5rem" }}>
-          {post.postReacts.length}{" "}
-          {post.postReacts.length > 1 ? "likes" : "like"}
+          {post?.postReacts?.length}{" "}
+          {post?.postReacts?.length > 1 ? "likes" : "like"}
         </p>
       </div>
       <div className="_feed_inner_timeline_total_reacts_txt">
         <p className="_feed_inner_timeline_total_reacts_para1">
-          <span>{post.comments.length}</span>{" "}
-          {post.comments.length > 1 ? "Comments" : "Comment"}
+          <span>{post?.comments?.length}</span>{" "}
+          {post?.comments?.length > 1 ? "Comments" : "Comment"}
         </p>
         <p className="_feed_inner_timeline_total_reacts_para2">
           <span>122</span> Shares
@@ -45,7 +45,7 @@ const FeedInnerTimelineTotalReacts = ({ post }) => {
       </div>
 
       {isModalOpen && (
-        <ModalLikes likes={post.postReacts} closeModal={closeModal} />
+        <ModalLikes reacts={post.postReacts} closeModal={closeModal} />
       )}
     </div>
   );
@@ -61,11 +61,10 @@ const FeedInnerTimelineReaction = ({
 }) => {
   const dispatch = useDispatch();
 
-  const isLiked = postReacts.indexOf(userId);
-  // console.log(postId,userId,isLiked);
-
+  const isLiked = postReacts?.indexOf(userId);
+ 
   function handleReact() {
-    // dispatch(likePost({ postId, userId }));
+    dispatch(reactToPost({ postId }));
   }
 
   return (

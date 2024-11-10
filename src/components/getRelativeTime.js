@@ -10,7 +10,7 @@ const getRelativeTime = (date) => {
 
   // Minutes
   if (diffInMinutes < 60) {
-    return `${diffInMinutes} ${diffInMinutes === 1 ? "minute" : "minutes"} ago`;
+    return `${diffInMinutes} ${diffInMinutes === 1 ? "min" : "mins"} ago`;
   }
 
   // Hours

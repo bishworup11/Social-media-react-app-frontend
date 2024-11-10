@@ -21,15 +21,15 @@ export default function Feed() {
   //const posts = [];
 
   const currentUser = useSelector((state) => state.auth.currentUser);
-  let sortedPosts = [...posts].sort((a, b) => b.postId - a.postId);
-  sortedPosts = sortedPosts.filter(
-    (post) => post.isShow === true || currentUser.userId === post.userId
-  );
+  // let sortedPosts = [...posts].sort((a, b) => b.postId - a.postId);
+  // sortedPosts = sortedPosts.filter(
+  //   (post) => post.isShow === true || currentUser.userId === post.userId
+  // );
 
   console.log(posts);
 
   useEffect(() => {
-    dispatch(fetchPosts({ page: 1, limit: 5 }));
+    dispatch(fetchPosts({ page: 1, limit: 2 }));
   }, [dispatch]);
 
   return (
@@ -42,9 +42,8 @@ export default function Feed() {
               <div className="_layout_middle_inner">
                 <StoryCard />
                 <FeedComponent />
-
                 {posts.map((post) => {
-                  //console.log(post);
+                  // console.log(post);
                   return <Post key={post.postId} post={post} />;
                 })}
               </div>

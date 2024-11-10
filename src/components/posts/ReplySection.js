@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addReply } from "../../store/postSlice";
+import { createReply } from "../../store/postSlice";
 
 export default function ReplySection({ currentUser, postId, comment }) {
   const dispatch = useDispatch();
@@ -9,14 +9,13 @@ export default function ReplySection({ currentUser, postId, comment }) {
   const handleSubmitCommentReply = (e) => {
     if (e.key === "Enter" && !e.shiftKey && replyText.length > 0) {
       e.preventDefault();
-      // dispatch(
-      //   addReply({
-      //     postId,
-      //     commentId: comment.commentId,
-      //     userId: currentUser.userId,
-      //     replyText,
-      //   })
-      // );
+      dispatch(
+        createReply({
+          postId,
+          commentId: comment.commentId,
+          text: replyText,
+        })
+      );
       //console.log(userId,postId,commentText);
       setReplyText("");
     }

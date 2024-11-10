@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { likeComment } from "../../store/postSlice";
+import { reactToComment } from "../../store/postSlice";
 import ModalLikes from "./ModalLikes";
 import Reply from "./Reply";
 import ReplySection from "./ReplySection";
@@ -8,17 +8,17 @@ import getRelativeTime from "../getRelativeTime";
 
 export default function Comment({ comment, currentUser, postId }) {
   const users = useSelector((state) => state.auth.users);
-  const isLiked = comment.reacts.includes(currentUser.userId);
+  const isLiked = comment?.reacts?.includes(currentUser.userId);
   const [isReplying, setIsReplying] = useState(false);
   const [showAllReplies, setShowAllReplies] = useState(false);
   const dispatch = useDispatch();
-  const user = comment.user;
-  let time = Math.round((Date.now() - comment.commentId) / (1000 * 60));
+  const user = comment?.user;
+
   const timeString = getRelativeTime(comment.createdAt);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    if (comment.likes.length > 0) setIsModalOpen(true);
+    if (comment?.reacts?.length > 0) setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -26,21 +26,21 @@ export default function Comment({ comment, currentUser, postId }) {
   };
 
   function handleCommentReact() {
-    // dispatch(
-    //   likeComment({
-    //     commentId: comment.commentId,
-    //     userId: currentUser.userId,
-    //     postId: postId,
-    //   })
-    // );
+    dispatch(
+      reactToComment({
+        commentId: comment.commentId,
+        postId: postId,
+        reactType: "like",
+      })
+    );
   }
 
   return (
     <div className="_comment_main">
       <div className="_comment_image">
-        <a href="/" className="_comment_image_link">
+        <a href={`/profile/${user?.userId}`} className="_comment_image_link">
           <img
-            src={`assets/images/img${user ? user.userId % 18 : 1}.png`}
+            src={`/assets/images/img${user ? user.userId % 18 : 1}.png`}
             alt=""
             className="_comment_img1"
           />
@@ -50,7 +50,7 @@ export default function Comment({ comment, currentUser, postId }) {
         <div className="_comment_details">
           <div className="_comment_details_top" style={{ textAlign: "left" }}>
             <div className="_comment_name">
-              <a href="/">
+              <a href={`/profile/${user?.userId}`}>
                 <h4 className="_comment_name_title">
                   {user?.firstName} {user?.lastName}
                 </h4>
@@ -59,7 +59,7 @@ export default function Comment({ comment, currentUser, postId }) {
           </div>
           <div className="_comment_status">
             <p className="_comment_status_text" style={{ textAlign: "left" }}>
-              <span>{comment.text} </span>
+              <span>{comment?.text} </span>
             </p>
           </div>
           <div className="_total_reactions" onClick={() => openModal()}>
@@ -97,7 +97,7 @@ export default function Comment({ comment, currentUser, postId }) {
                   </svg>
                 </span> */}
             </div>
-            <span className="_total">{comment.reacts.length}</span>
+            <span className="_total">{comment?.reacts?.length}</span>
           </div>
           <div className="_comment_reply">
             <div className="_comment_reply_num">
@@ -124,21 +124,21 @@ export default function Comment({ comment, currentUser, postId }) {
         </div>
         {/* this part for reply */}
 
-        {comment.replies.length > 1 ? (
+        {comment?.replies?.length > 1 ? (
           <div
             className="_previous_comment"
             style={{ textAlign: "left" }}
             onClick={() => setShowAllReplies(!showAllReplies)}
           >
             <button type="button" className="_previous_comment_txt">
-              {showAllReplies ? "Hide" : " View"} {comment.replies.length - 1}{" "}
-              previous {comment.replies.length > 2 ? "replies" : "reply"}
+              {showAllReplies ? "Hide" : " View"} {comment?.replies?.length - 1}{" "}
+              previous {comment?.replies?.length > 2 ? "replies" : "reply"}
               {showAllReplies ? " (show less) " : " (show more)"}
             </button>
           </div>
         ) : null}
 
-        {comment.replies.length > 1 ? (
+        {comment?.replies?.length > 1 ? (
           showAllReplies ? (
             comment.replies.map((reply) => (
               <Reply
@@ -158,7 +158,7 @@ export default function Comment({ comment, currentUser, postId }) {
               postId={postId}
             />
           )
-        ) : comment.replies.length === 1 ? (
+        ) : comment?.replies?.length === 1 ? (
           <Reply
             key={comment.replies[0].replyId}
             reply={comment.replies[0]}
@@ -178,7 +178,7 @@ export default function Comment({ comment, currentUser, postId }) {
       </div>
 
       {isModalOpen && (
-        <ModalLikes likes={comment.likes} closeModal={closeModal} />
+        <ModalLikes reacts={comment.reacts} closeModal={closeModal} />
       )}
     </div>
   );

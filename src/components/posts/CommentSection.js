@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addComment } from "../../store/postSlice";
+import { createComment } from "../../store/postSlice";
 import Comment from "./Comment";
 
 const CommentSection = ({ currentUser, postId, comments }) => {
   const dispatch = useDispatch();
   const [commentText, setCommentText] = useState("");
-  const commentsLength = comments.length;
+  const commentsLength = comments?.length;
   const userId = currentUser.userId;
   const [showAllComments, setShowAllComments] = useState(false);
 
@@ -14,7 +14,7 @@ const CommentSection = ({ currentUser, postId, comments }) => {
     if (e.key === "Enter" && !e.shiftKey && commentText.length > 0) {
       e.preventDefault();
       console.log("commentText", commentText, commentText.length);
-      // dispatch(addComment({ userId, postId, commentText }));
+      dispatch(createComment({ postId, text: commentText }));
       //console.log(userId,postId,commentText);
       setCommentText("");
     }

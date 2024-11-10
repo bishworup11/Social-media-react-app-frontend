@@ -1,14 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  fetchPosts,
-  createPost,
-  updatePost,
-  deletePost,
-  reactToPost,
-  createComment,
-  createReply,
-} from "../store/postSlice";
+import { createPost } from "../store/postSlice";
 
 const FeedComponent = () => {
   const [postText, setPostText] = useState("");
@@ -37,7 +29,7 @@ const FeedComponent = () => {
         <div className="_feed_inner_text_area_box_image">
           {/* <img src="assets/images/txt_img.png" alt="Image" className="_txt_img" /> */}
           <img
-            src={`assets/images/img${
+            src={`/assets/images/img${
               currentUser ? currentUser.userId % 18 : 1
             }.png`}
             alt="User ProfilePicture"

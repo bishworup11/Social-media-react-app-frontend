@@ -5,12 +5,12 @@ const API_URL = "http://localhost:3333"; // Replace with your actual API base UR
 
 export const authApi = {
   register: async (credentials) => {
-    const response = await axios.post(`${API_URL}/register`, credentials);
+    const response = await axios.post(`${API_URL}/user/register`, credentials);
     return response.data;
   },
 
   login: async (credentials) => {
-    const response = await axios.post(`${API_URL}/login`, credentials, {
+    const response = await axios.post(`${API_URL}/user/login`, credentials, {
       withCredentials: true,
     });
     return response.data;
@@ -18,7 +18,7 @@ export const authApi = {
 
   logout: async () => {
     const response = await axios.post(
-      `${API_URL}/logout`,
+      `${API_URL}/user/logout`,
       {},
       {
         withCredentials: true,

@@ -1,14 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { hidePost, deletePost, editPost } from "../../store/postSlice";
+import {
+  updatePostVisibility,
+  deletePost,
+  updatePost,
+} from "../../store/postSlice";
 import { IoEarthSharp } from "react-icons/io5";
 import { MdLockPerson } from "react-icons/md";
 import getRelativeTime from "../getRelativeTime";
 const TimelinePost = ({ post, userId }) => {
   const [show, setShow] = React.useState(false);
-  const time = Date.now();
-  const posttime = new Date(post.createdAt);
-  let timeInterval = Math.round((time - posttime) / (1000 * 60));
   const timestring = getRelativeTime(post.createdAt);
   //  const users = useSelector((state) => state.auth.users);
   //const postUser = users.find((user) => user.userId === post.userId);
@@ -17,7 +18,7 @@ const TimelinePost = ({ post, userId }) => {
   const [editText, setEditText] = React.useState("");
   const dispatch = useDispatch();
 
-  console.log(post, userId);
+  // console.log(post, userId);
   function handleShow() {
     setShow(!show);
   }
@@ -28,7 +29,7 @@ const TimelinePost = ({ post, userId }) => {
   }
 
   function handleEdit() {
-    // dispatch(editPost({ postId: post.postId, text: editText }));
+    dispatch(updatePost({ postId: post.postId, text: editText }));
     setIsEdit(false);
   }
   const handleSubmitEdit = (e) => {
@@ -44,7 +45,7 @@ const TimelinePost = ({ post, userId }) => {
         <div className="_feed_inner_timeline_post_box">
           <div className="_feed_inner_timeline_post_box_image">
             <img
-              src={`assets/images/img${
+              src={`/assets/images/img${
                 post.user ? post.user.userId % 18 : 1
               }.png`}
               alt=""
@@ -56,7 +57,7 @@ const TimelinePost = ({ post, userId }) => {
             style={{ textAlign: "left" }}
           >
             <h4 className="_feed_inner_timeline_post_box_title">
-              {post.user.firstName} {post.user.lastName}
+              {post?.user?.firstName} {post?.user?.lastName}
             </h4>
             <p className="_feed_inner_timeline_post_box_para">
               {timestring}
@@ -368,7 +369,7 @@ const TimelinePost = ({ post, userId }) => {
 
       <div className="_feed_inner_timeline_image">
         <img
-          src="assets/images/timeline_img.png"
+          src="/assets/images/timeline_img.png"
           alt=""
           className="_time_img"
         />
@@ -382,12 +383,12 @@ function Dropdown({ post, userId, handleShow, handleEditShow }) {
   //console.log(post.userId,userId);
   const dispatch = useDispatch();
   function handleHidePost() {
-    // dispatch(hidePost({ postId: post.postId }));
+    dispatch(updatePostVisibility({ postId: post.postId }));
     handleShow();
   }
   function handleDeletePost() {
     if (window.confirm("Are you sure you want to delete this post?")) {
-      // dispatch(deletePost({ postId: post.postId }));
+      dispatch(deletePost({ postId: post.postId }));
       handleShow();
     }
   }
@@ -465,7 +466,7 @@ function Dropdown({ post, userId, handleShow, handleEditShow }) {
                     />
                   </svg>
                 </span>
-                {post.isShow ? "Hide Post" : "Unhide Post"}
+                {post?.visibility ? "Hide Post" : "Unhide Post"}
               </a>
             </li>
             <li

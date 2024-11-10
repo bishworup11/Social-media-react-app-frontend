@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { likeReply } from "../../store/postSlice";
+import { reactToReply } from "../../store/postSlice";
 import ModalLikes from "./ModalLikes";
-
+import getRelativeTime from "../getRelativeTime";
 export default function Reply({ reply, currentUser, commentId, postId }) {
   const users = useSelector((state) => state.auth.users);
   const replyUser = reply.user;
   const dispatch = useDispatch();
-  const isLiked = reply.replyReact.includes(currentUser.userId);
-  let time = Math.round((Date.now() - reply.replyId) / (1000 * 60));
+  const isLiked = reply?.replyReact?.includes(currentUser.userId);
+
+  const timeString = getRelativeTime(reply.createdAt);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
-    if (reply.likes.length > 0) setIsModalOpen(true);
+    if (reply.replyReact.length > 0) setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -20,14 +21,13 @@ export default function Reply({ reply, currentUser, commentId, postId }) {
   };
 
   function handleReplyLike() {
-    // dispatch(
-    //   likeReply({
-    //     commentId,
-    //     postId,
-    //     userId: currentUser.userId,
-    //     replyId: reply.replyId,
-    //   })
-    // );
+    dispatch(
+      reactToReply({
+        commentId,
+        postId,
+        replyId: reply.replyId,
+      })
+    );
   }
 
   return (
@@ -35,10 +35,12 @@ export default function Reply({ reply, currentUser, commentId, postId }) {
       style={{ display: "flex", flexDirection: "row", marginBottom: ".5rem" }}
     >
       <div className="_comment_image" style={{ marginRight: ".5rem" }}>
-        <a href="/" className="_comment_image_link">
+        <a
+          href={`/profile/${replyUser?.userId}`}
+          className="_comment_image_link"
+        >
           <img
-            // src={replyUser?.profilePicture}
-            src={`assets/images/img${
+            src={`/assets/images/img${
               replyUser ? replyUser.userId % 18 : 1
             }.png`}
             alt="UserPhoto"
@@ -51,7 +53,7 @@ export default function Reply({ reply, currentUser, commentId, postId }) {
           <div className="_comment_details" style={{ marginLeft: "-0.5rem" }}>
             <div className="_comment_details_top" style={{ textAlign: "left" }}>
               <div className="_comment_name">
-                <a href="/">
+                <a href={`/profile/${replyUser?.userId}`}>
                   <h4 className="_comment_name_title">
                     {replyUser?.firstName} {replyUser?.lastName}
                   </h4>
@@ -82,7 +84,7 @@ export default function Reply({ reply, currentUser, commentId, postId }) {
                   </svg>
                 </span>
               </div>
-              <span className="_total">{reply.replyReact.length} </span>
+              <span className="_total">{reply?.replyReact?.length} </span>
             </div>
             <div className="_comment_reply">
               <div className="_comment_reply_num">
@@ -98,8 +100,8 @@ export default function Reply({ reply, currentUser, commentId, postId }) {
                   </li>
                   <li>
                     <span className="_time_link">
-                      {time}
-                      {time > 1 ? "mins" : "min"}
+                      {timeString}
+                      {/* {time > 1 ? "mins" : "min"} */}
                     </span>
                   </li>
                 </ul>
@@ -109,7 +111,7 @@ export default function Reply({ reply, currentUser, commentId, postId }) {
         </div>
       </div>
       {isModalOpen && (
-        <ModalLikes likes={reply.replyReact} closeModal={closeModal} />
+        <ModalLikes reacts={reply.replyReact} closeModal={closeModal} />
       )}
     </div>
   );
