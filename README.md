@@ -2,13 +2,16 @@
 
 ## Project Overview
 
-This project is a social media application built with React, enabling users to create and manage posts, interact with others through comments and replies, and explore various features related to liking , who likes and like comments count. In this project, I began with a pre-designed HTML and CSS layout. I broke the design into smaller components and converted each one into React components while adding functionality. For the database, I used a local setup to store user information, the current user, and posts
+This project is a React.js frontend application for social media application , enabling users to create and manage posts, interact with others through comments and replies, and explore various features related to liking , who likes and like comments count.
 
-Access the live application here: [Live Link Here](https://social-media-react-app-eight.vercel.app).
+## [**Backed Link🔗**](https://github.com/bishworup11/Learn_Adonis_js-)
+
+## [**Previous Version Link🔗**](https://github.com/bishworup11/Social-media-react-app)
 
 ---
 
 ## Table of Contents
+
 1. [Features](#features)
 2. [Installation](#installation)
 3. [Project Structure](#project-structure)
@@ -120,45 +123,6 @@ src/
 - All data (users, posts, likes, comments, and replies) is stored in **local storage**.
 - This ensures that the user’s data persists between sessions, even if they refresh or close the browser.
 
-
-## Sample Data (Default Users)
-
-This sample data illustrates the structure used for user accounts within the application. Each user has a unique `userId`, `profilePicture`, `name`, `email`, and `password`. Currently, there are no posts available. Please create a post, along with likes, comments, and replies, and then log in with another account to interact with these features.
-
-```json
- [
-    {
-      "userId": 1728561542994,
-      "profilePicture": "assets/images/img11.png",
-      "name": "Bishworup Mollik",
-      "email": "b@gmail.com",
-      "password": "b@gmail.com"
-  },
-    {
-        "userId": 1728561504672,
-        "profilePicture": "assets/images/img17.png",
-        "name": "Alice",
-        "email": "a@gmail.com",
-        "password": "a@gmail.com"
-    },
-   
-    {
-      "userId": 1728561542993,
-      "profilePicture": "assets/images/img4.png",
-      "name": "Bob",
-      "email": "bb@gmail.com",
-      "password": "bb@gmail.com"
-  },
-    {
-        "userId": 1728561631801,
-        "profilePicture": "assets/images/img13.png",
-        "name": "Cora",
-        "email": "c@gmail.com",
-        "password": "c@gmail.com"
-    }
-  ]
-```
-
 ## Usage
 
 ### Accessing Core Features
@@ -190,5 +154,3 @@ This sample data illustrates the structure used for user accounts within the app
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-
