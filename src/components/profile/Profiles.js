@@ -17,7 +17,7 @@ export default function Profiles() {
   console.log(posts);
 
   useEffect(() => {
-    dispatch(fetchPosts({ page: 1, limit: 2, userId: slug }));
+    dispatch(fetchPosts({ page: 1, limit: 10, userId: slug }));
   }, [dispatch, slug]);
 
   return (

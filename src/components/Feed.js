@@ -18,7 +18,9 @@ import {
 export default function Feed() {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.post.posts);
+  const loading = useSelector((state) => state.post.loading);
   //const posts = [];
+  console.log(loading);
 
   const currentUser = useSelector((state) => state.auth.currentUser);
   // let sortedPosts = [...posts].sort((a, b) => b.postId - a.postId);
@@ -29,7 +31,7 @@ export default function Feed() {
   console.log(posts);
 
   useEffect(() => {
-    dispatch(fetchPosts({ page: 1, limit: 2 }));
+    dispatch(fetchPosts({ page: 1, limit: 10 }));
   }, [dispatch]);
 
   return (
